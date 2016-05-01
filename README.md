@@ -133,4 +133,4 @@ const sampleDocFilePath = SavePath + '/sample.doc';
 ...
 ```
 ##Demo project
-
+[https://github.com/huangzuizui/react-native-file-opener-demo](https://github.com/huangzuizui/react-native-file-opener-demo)
