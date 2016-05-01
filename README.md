@@ -10,7 +10,7 @@ A React Native module that allows you to open a file (mp3, mp4, pdf, word, excel
 5. Compile and have fun
 
 ##Android
-1. `npm install react-native-file-opener --save`
+* `npm install react-native-file-opener --save`
 ```java
 // file: android/settings.gradle
 ...
@@ -26,6 +26,41 @@ dependencies {
 		compile project(':react-native-file-opener')
 }
 ```
+* register module
+* For react-native below 0.19.0 (use cat ./node_modules/react-native/package.json | grep version)
+```java
+// file: MainActivity.java
+import com.fileopener.FileOpenerPackage;  // <- import
+
+public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
+
+  ...
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    mReactRootView = new ReactRootView(this);
+
+    mReactInstanceManager = ReactInstanceManager.builder()
+      .setApplication(getApplication())
+      .setBundleAssetName("index.android.bundle")
+      .setJSMainModuleName("index.android")
+      .addPackage(new MainReactPackage())
+      .addPackage(new FileOpenerPackage())      // <- add package
+      .setUseDeveloperSupport(BuildConfig.DEBUG)
+      .setInitialLifecycleState(LifecycleState.RESUMED)
+      .build();
+
+    mReactRootView.startReactApplication(mReactInstanceManager, "ExampleRN", null);
+
+    setContentView(mReactRootView);
+  }
+
+  ...
+
+}
+```
+* For react-native 0.19.0 and higher
 ```java
 // file: MainActivity.java
 	...
@@ -40,7 +75,7 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
+            new MainReactPackage(), //<- Add comma
             new FileOpenerPackage() //<- Add package
         );
     }
@@ -53,7 +88,7 @@ public class MainActivity extends ReactActivity {
 ```javascript
 const FileOpener = require('react-native-file-opener');
 ```
-2. Basic ussage
+2. Basic usage
 ```javascript
 const FilePath = ...; // path of the file
 const FileMimeType = ...; // mime type of the
@@ -66,3 +101,31 @@ FileOpener.open(
     console.log('error!!')
 });
 ```
+##Usage with react-native-fs
+* You can get filepath by using [react-native-fs](https://github.com/johanneslumpe/react-native-fs)
+
+```javascript
+const RNFS = require('react-native-fs');
+const FileOpener = require('react-native-file-opener');
+
+const SavePath = Platform.OS === 'ios' ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath;
+const sampleDocFilePath = SavePath + '/sample.doc';
+
+...
+
+  function openSampleDoc() {
+        FileOpener.open(
+            sampleDocFilePath,
+            'application/msword'
+        ).then(() => {
+            console.log('success!!');
+        },(e) => {
+            console.log('error!!');
+        });
+
+    }
+    
+...
+```
+##Demo project
+
