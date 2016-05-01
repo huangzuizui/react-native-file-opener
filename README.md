@@ -1,6 +1,11 @@
 react-native-file-opener
 -
 A React Native module that allows you to open a file (mp3, mp4, pdf, word, excel, dwg etc.) on your device with its default application
+
+iOS | Android
+------- | ----
+<img title="iOS" src="https://github.com/huangzuizui/react-native-file-opener/blob/master/assets/ios_screen.gif"> | <img title="Android" src="https://raw.githubusercontent.com/huangzuizui/react-native-file-opener/master/assets/android_screen.gif">
+
 # Install
 ##iOS
 1. `npm install react-native-file-opener --save`
