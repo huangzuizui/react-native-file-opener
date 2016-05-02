@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/huangzuizui/react-native-file-opener.git"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A React Native module that allows you to open a file (mp3, mp4, pdf, word, excel, dwg etc.) on your device with its default application",
   "author": "huang zuizui",
   "main": "react-native-file-opener.js",
