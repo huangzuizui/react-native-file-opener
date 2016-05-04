@@ -96,7 +96,7 @@ const FileOpener = require('react-native-file-opener');
 2. Basic usage
 ```javascript
 const FilePath = ...; // path of the file
-const FileMimeType = ...; // mime type of the
+const FileMimeType = ...; // mime type of the file
 FileOpener.open(
     FilePath,
     FileMimeType
