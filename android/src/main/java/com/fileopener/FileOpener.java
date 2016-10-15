@@ -25,41 +25,40 @@ import java.util.HashMap;
 
 public class FileOpener extends ReactContextBaseJavaModule {
 
-  public FileOpener(ReactApplicationContext reactContext) {
-    super(reactContext);
-  }
+	public FileOpener(ReactApplicationContext reactContext) {
+		super(reactContext);
+	}
 
-  @Override
-  public String getName() {
-    return "FileOpener";
-  }
+	@Override
+	public String getName() {
+		return "FileOpener";
+	}
 
-  @Override
-  public Map<String, Object> getConstants() {
-    final Map<String, Object> constants = new HashMap<>();
-    return constants;
-  }
+	@Override
+	public Map<String, Object> getConstants() {
+		final Map<String, Object> constants = new HashMap<>();
+		return constants;
+	}
 
-  @ReactMethod
-  public void open(String fileArg, String contentType, Promise promise) throws JSONException {
-  		File file = new File(fileArg);
-
-  		if (file.exists()) {
-  			try {
-  				Uri path = Uri.fromFile(file);
-  				Intent intent = new Intent(Intent.ACTION_VIEW);
-  				intent.setDataAndType(path, contentType);
-  				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-  				getReactApplicationContext().startActivity(intent);
-
-                promise.resolve("Open success!!");
-  			} catch (android.content.ActivityNotFoundException e) {
-                promise.reject("Open error!!");
-  			}
-  		} else {
-            promise.reject("File not found");
-  		}
-  	}
+	@ReactMethod
+	public void open(String fileArg, String contentType, Promise promise) throws JSONException {
+		File file = new File(fileArg);
+		if (file.exists()) {
+			try {
+				Uri path = Uri.fromFile(file);
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setDataAndType(path, contentType);
+				Intent i = Intent.createChooser(intent, "Open File");
+				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				getReactApplicationContext().startActivity(i);
+				promise.resolve("Open success!!");
+			} catch (android.content.ActivityNotFoundException e) {
+				promise.reject("Open error!!");
+			}
+		} else {
+			promise.reject("File not found");
+		}
+	}
 
 }
