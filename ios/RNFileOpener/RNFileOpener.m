@@ -30,7 +30,7 @@ RCT_REMAP_METHOD(open, filePath:(NSString *)filePath fileMine:(NSString *)fileMi
     
     UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     
-    BOOL wasOpened = [self.FileOpener presentOpenInMenuFromRect:ctrl.view.bounds inView:ctrl.view animated:YES];
+    BOOL wasOpened = [self.FileOpener presentOptionsMenuFromRect:ctrl.view.bounds inView:ctrl.view animated:YES];
     
     if (wasOpened) {
         resolve(@"Open success!!");
