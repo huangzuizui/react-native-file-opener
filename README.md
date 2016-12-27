@@ -122,6 +122,8 @@ For setting up other directories (cache, external storage, ...) follow the guide
 ```
 
 
+* For react-native 0.29.0 and higher, do the above in **MainApplication.java**
+
 ##Usage
 1. In your React Native javascript code, bring in the native module
 ```javascript
