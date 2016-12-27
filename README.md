@@ -87,6 +87,40 @@ public class MainActivity extends ReactActivity {
 ...
 }
 ```
+###Allow files access
+* AndroidManifest.xml
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapp">
+    <application
+        ...>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.myapp.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        ...
+    </application>
+</manifest>
+```
+* android/app/src/main/res/xml/file_paths.xml (create if not exists)
+
+"path" attribute must contain the directory name.
+
+For setting up other directories (cache, external storage, ...) follow the guide at 
+[https://developer.android.com/reference/android/support/v4/content/FileProvider.html](https://developer.android.com/reference/android/support/v4/content/FileProvider.html) 
+```xml
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    ...
+    <files-path name="img" path="images/"/>
+    ...
+</paths>
+```
+
 
 ##Usage
 1. In your React Native javascript code, bring in the native module
