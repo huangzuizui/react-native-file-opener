@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.content.FileProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,11 +47,11 @@ public class FileOpener extends ReactContextBaseJavaModule {
 
   		if (file.exists()) {
   			try {
-  				Uri path = Uri.fromFile(file);
+          Uri path = FileProvider.getUriForFile(getReactApplicationContext(), getReactApplicationContext().getPackageName() + ".fileprovider", file);
   				Intent intent = new Intent(Intent.ACTION_VIEW);
   				intent.setDataAndType(path, contentType);
-  				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
   				getReactApplicationContext().startActivity(intent);
 
                 promise.resolve("Open success!!");
